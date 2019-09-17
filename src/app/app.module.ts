@@ -12,6 +12,7 @@ import { SignUpComponent } from './components/sign-up/sign-up.component';
 import { LogInComponent } from './components/log-in/log-in.component';
 
 import { AuthService } from './services/auth.service';
+import { AuthGuardService } from  './services/auth-guard.service'
 
 import  {AuthEffects} from './store/effects/auth.effects'
 import { StoreModule } from '@ngrx/store';
@@ -36,7 +37,7 @@ import { StatusComponent } from './components/status/status.component';
     FormsModule,
     HttpClientModule,
   ],
-  providers: [AuthService,
+  providers: [AuthService,AuthGuardService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptor,
