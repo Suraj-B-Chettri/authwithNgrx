@@ -32,13 +32,15 @@ export class ErrorInterceptor implements HttpInterceptor {
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 
     return next.handle(request)
-      .pipe(
-        catchError((response: any) => {
+    .pipe(
+      catchError((response: any) => {
         if (response instanceof HttpErrorResponse && response.status === 401) {
-          console.log(response);
+          localStorage.removeItem('token');
+          this.router.navigateByUrl('/log-in');
         }
         return Observable.throw(response);
       })
-      )
+    )
+
   }
 }

@@ -8,7 +8,7 @@ import 'rxjs/add/observable/of';
 import { AuthService } from '../../services/auth.service';
 import {
   AuthActionTypes,
-  LogIn, LogInSuccess, LogInFailure, SignUp,SignUpSuccess, SignUpFailure,LogOut
+  LogIn, LogInSuccess, LogInFailure, SignUp,SignUpSuccess, SignUpFailure,LogOut, GetStatus
 } from '../actions/auth.actions';
 
 import { switchMap, map, catchError, tap} from 'rxjs/operators'
@@ -96,5 +96,14 @@ public LogOut: Observable<any> = this.actions$.pipe(
     localStorage.removeItem('token');
   })
 );
+
+@Effect({ dispatch: false })
+GetStatus: Observable<any> = this.actions$.pipe(
+  ofType(AuthActionTypes.GET_STATUS),
+  map((action: GetStatus) => action),
+    switchMap(payload => {
+    return this.authService.getStatus();
+  })
+)
 
 }
