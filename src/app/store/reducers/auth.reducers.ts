@@ -57,6 +57,10 @@ export function reducer(state = initialState, action: All): State {
       };
     }
 
+    case AuthActionTypes.LOGOUT: {
+      return initialState;
+    }
+
     default: {
       return state;
     }
